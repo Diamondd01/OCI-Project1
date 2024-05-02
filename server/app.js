@@ -1,31 +1,23 @@
-// load environment variables from .env or elsewhere
+const bodyParser = require('express')
 const express = require('express');
-const app = express();
-const path = require('path');
-const cors = require('cors');
+const pool = require('./db')
 
-//Allow CORS requests
-app.use(cors());
+const path = require('path')
+
+const app = express();
+
 // parsing middleware for form input data & json
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// serve up static files (e.g. html and css files)
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // api router
-app.use('/api', require('./routes'));
-
-// 404 handler
-app.use((req, res) => {
-  res.status(404).send({error: '404 - Not Found', message: 'No route found for the requested URL'});
+app.use('/test',(req,res,next)=>{
+  res.send('here')
+  console.log('middlware for url')
+  next()
 });
 
-// error handling middleware
-app.use((error, req, res, next) => {
-  console.error('SERVER ERROR: ', error);
-  if(res.statusCode < 400) res.status(500);
-  res.send({error: error.message, name: error.name, message: error.message, table: error.table});
-});
 
 module.exports = app;
