@@ -1,9 +1,9 @@
 
 document.addEventListener('DOMContentLoaded',function(){
     const categorySelect= document.getElementById("category-select");
-    const getRecipeBtn = document.getElementById('get-recipe-btn')
+    const getRecipeBtn = document.getElementById('getRecipe-btn')
 
-fetch('/categories')
+fetch(`/categories`)
     .then(response => response.json())
     .then(data => {
         data.categoryNames.forEach(category => {
@@ -19,11 +19,19 @@ fetch('/categories')
    getRecipeBtn.addEventListener('click',function(){
     const selectedCategory = categorySelect.value;
     if(selectedCategory){
-        fetch('/random-dish/${selectedCategory}')
+        fetch(`/random-dish/${selectedCategory}`)
         .then(response => response.json())
         .then(recipe => {
+            const recipeName = recipe.name;
+            const recipeInstructions = recipe.instructions;
+            const recipeImage= recipe.image_url;
+
             const randomRecipeSelection =document.getElementById('random-recipe');
-            randomRecipeSelection.innerHTML='<h2>${recipe.name}</h2><p>${recipe.description}</p>';
+            randomRecipeSelection.innerHTML=`
+            <h2>${recipeName}</h2>
+            <p>${recipeInstructions}</p>
+            <img src="${recipeImage}" Recipe>
+            `;
         })
         .catch(error => console.error("Error fetching random recipe", error))
     }else {
