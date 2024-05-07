@@ -1,17 +1,17 @@
 const bodyParser = require('express')
 const express = require('express');
+const app = express();
 const pool = require('./db')
 
 const path = require('path');
 const { error } = require('console');
 
-const app = express();
 
 // parsing middleware for form input data & json
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // api router
 app.get('/test',(req,res,next)=>{
@@ -35,15 +35,15 @@ app.get('/categories',async(req,res)=>{
 });
 
 app.get('/random-dish/:categoryName',async(req,res)=>{
-  const {categoryNames} = req.params;
+  const {categoryName} = req.params;
   try{
     const result = await pool.query(
-    'SELECT * FROM Recipes WHERE category_id = ( SELECT category_id FROM Categories WHERE name = $1',[categories])
+    `SELECT * FROM Recipes WHERE category_id = ( SELECT category_id FROM Categories WHERE name = \'${categoryName}\');`)
 
     if(result.rows.length === 0){
       return res.status(400).json({error:'No recipe found'})
     }
-    
+
     const randomIndex = Math.floor(Math.random()* result.rows.length);
     const randomRecipe = result.rows[randomIndex];
     res.json(randomRecipe)
