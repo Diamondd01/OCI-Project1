@@ -5,13 +5,13 @@ function Category({onSelect}) {
     const [selectedCategory, setSelectedCategory]= useState('');
 
     useEffect(() => {
-        fetch('/categories')
+        fetch('http://150.136.71.117/categories')
         .then(response => response.json())
         .then(data => setCategories(data.categoryNames))
         .catch(error => console.error('Error fetching actegories',error));
         
     },[])
-
+    
     const handleChange = event =>{
         setSelectedCategory(event.target.value);
     };
@@ -22,7 +22,7 @@ function Category({onSelect}) {
             onSelect(selectedCategory);
         }
     };
-}
+
 return (
     <div>
         <h2>Choose a Category:</h2>
@@ -37,5 +37,5 @@ return (
         </form>
     </div>
 )
-
+}
 export default Category;

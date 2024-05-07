@@ -1,4 +1,4 @@
-const bodyParser = require('express')
+const bodyParser = require('body-parser')
 const express = require('express');
 const app = express();
 const pool = require('./db')
@@ -11,7 +11,7 @@ const { error } = require('console');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static( 'public'));
 
 // api router
 app.get('/test',(req,res,next)=>{
