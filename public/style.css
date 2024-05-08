@@ -5,7 +5,6 @@ body {
 }
 
 header{
-    background-color:#333;
     color: #fff;
     padding:10px, 20px;
 }
@@ -24,16 +23,23 @@ footer{
 }
 #categories {
     text-align: center;
+    margin: 4%;
 }
 h1{
     text-align: center;
+    margin-top: 140px;
+    font-size: 40px;
+    background-color: brown;
+    margin-right: 200px;
+    margin-left: 200px;
 }
 body{
-    background-image: url('https://tse3.mm.bing.net/th/id/OIP.jI8iebhALon8mMX35ieY-wHaEK?rs=1&pid=ImgDetMain');
-   
+    background-image: url('https://grillatqc.com/wp-content/uploads/2016/06/menu-background.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 h2{
-    color:white
+    color:black
 }
 #random-recipe{
     font-family: 'Times New Roman', Times, serif;
@@ -47,4 +53,10 @@ h2{
     width: 50%;
     height: auto;
     margin: auto;
+}
+#random-recipe  p {
+    margin: 0 250px;
+}
+#random-recipe  h2 {
+    text-align: center;
 }
